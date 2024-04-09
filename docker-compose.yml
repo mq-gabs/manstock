@@ -1,0 +1,23 @@
+version: '3'
+
+services: 
+  manstock-backend:
+    container_name: manstock-backend
+    image: manstock-backend-image
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    command: npm run start
+  manstock-frontend:
+    image: manstock-frontend-image
+    container_name: manstock-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    ports:
+      - 5173:5173
+    command: npm run start:net
